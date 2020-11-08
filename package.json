@@ -1,0 +1,29 @@
+{
+  "name": "process.argv.parser",
+  "version": "0.0.0",
+  "description": "Lightweight Node.js Arguments Parser with 0 Dependencies 🚀 and many yargs-parser configurations disabled by default.",
+  "main": "./src/index.js",
+  "files": [
+    "src/*"
+  ],
+  "scripts": {
+    "prepublish": "npm test",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legend80s/process.argv.parser.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/legend80s/process.argv.parser/issues"
+  },
+  "homepage": "https://github.com/legend80s/process.argv.parser#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "git-commit-msg-linter": "^3.0.0",
+    "jest": "^26.5.3"
+  }
+}

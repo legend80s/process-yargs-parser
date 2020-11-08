@@ -12,7 +12,7 @@
   <a href="https://packagephobia.now.sh/result?p=process.argv.parser" rel="nofollow">
     <img src="https://packagephobia.now.sh/badge?p=process.argv.parser" alt="Install Size">
   </a>
-  <a href="https://github.com/legend80s/process.argv.parser/blob/main/test/index.test.js">
+  <a href="https://github.com/legend80s/process.argv.parser/blob/master/test/index.test.js">
     <img src="https://badgen.net/badge/passed/jest/green" alt="jest" />
   </a>
 </p>
@@ -47,7 +47,7 @@ console.log(argv)
 { _: [], foo: 99, bar: 33 }
 ```
 
-READ more usages in [index.test.js](https://github.com/legend80s/process.argv.parser/blob/main/test/index.test.js).
+READ more usages in [index.test.js](https://github.com/legend80s/process.argv.parser/blob/master/test/index.test.js).
 
 ## Feature
 

@@ -1,7 +1,7 @@
-const { minimist } = require('../../cli-aid/src/utils/minimist');
+const parse = require('../');
 
-describe('minimist', () => {
-  it('Should parse as substack/minimist when use `=` as separator', () => {
+describe('yargs-parser', () => {
+  it('Should parse as yargs-parser when use `=` as separator', () => {
     const argv = '-x=2 -x=3 https://s.gravatar.com/avatar/438e8984d73c7da54916acb86fb5fb7c?size=100&default=retro -y=4 -n=5 -abc --beep=boop foo bar baz'.split(' ');
 
     const expected = {
@@ -21,7 +21,7 @@ describe('minimist', () => {
       ]
     };
 
-    const actual = minimist(argv, { "short-option-groups": true });
+    const actual = parse(argv, { "short-option-groups": true });
 
     const { _: restExpected, ...othersExpected } = expected;
     const { _: restActual, ...othersActual } = actual;
@@ -32,7 +32,7 @@ describe('minimist', () => {
 
   it('Should parse as yargs-parser when use `space` as separator', () => {
     const input = ['-x=1', '-y', 2, '--foo=3', '----foo=4', '-uvw=31', '--bar', 4, 'p=5', '--q=-x', '-----k=-x', '-z', '--two', '--baz====1'];
-    const actual = minimist(input, { "duplicate-arguments-array": true, 'short-option-groups': true });
+    const actual = parse(input, { "duplicate-arguments-array": true, 'short-option-groups': true });
     const expected = {
       x: 1,
       y: 2,
@@ -73,7 +73,7 @@ describe('minimist', () => {
       ],
     };
 
-    const actual = minimist(argv);
+    const actual = parse(argv);
 
     // console.log('actual:', actual);
 
@@ -109,7 +109,7 @@ describe('minimist', () => {
       _: [],
     };
 
-    const actual = minimist(argv, {
+    const actual = parse(argv, {
       'duplicate-arguments-array': true,
       'short-option-groups': true,
     });
@@ -129,7 +129,7 @@ describe('minimist', () => {
       _: [],
     };
 
-    const actual = minimist(argv, { 'short-option-groups': false });
+    const actual = parse(argv, { 'short-option-groups': false });
 
     expect(actual).toEqual(expected);
   });
@@ -150,7 +150,7 @@ describe('minimist', () => {
       _: [],
     };
 
-    const actual = minimist(argv, { 'boolean-negation': true });
+    const actual = parse(argv, { 'boolean-negation': true });
 
     // console.log('actual:', actual);
 
@@ -171,7 +171,7 @@ describe('minimist', () => {
       _: [],
     };
 
-    const actual = minimist(argv, { 'boolean-negation': false });
+    const actual = parse(argv, { 'boolean-negation': false });
 
     // console.log('actual:', actual);
 
@@ -186,14 +186,14 @@ describe('minimist', () => {
       _: [],
     };
 
-    const actual = minimist(argv, { "duplicate-arguments-array": true });
+    const actual = parse(argv, { "duplicate-arguments-array": true });
 
     expect(actual).toEqual(expected);
   });
 
   it('Should group the duplicate key with redundant hyphens', () => {
     const input = ['--foo=3', '--foo=3', '---foo=4', '---foo=4', '----foo=5', '----foo=5', '-----foo=6'];
-    const actual = minimist(input, { "duplicate-arguments-array": true });
+    const actual = parse(input, { "duplicate-arguments-array": true });
     const expected = {
       foo: [3, 3, 4, 4, 5, 5, 6],
       '-foo': [4, 4],
@@ -210,7 +210,7 @@ describe('minimist', () => {
 
   it('Should parse multiple beginning hyphens into two entry', () => {
     const input = ['-----k=-x'];
-    const actual = minimist(input, { "duplicate-arguments-array": true });
+    const actual = parse(input, { "duplicate-arguments-array": true });
     const expected = {
       '---k': '-x',
       k: '-x',
@@ -225,7 +225,7 @@ describe('minimist', () => {
 
   it('Should parse the ending flag as boolean', () => {
     const input = ['--debug'];
-    const actual = minimist(input, { "duplicate-arguments-array": true });
+    const actual = parse(input, { "duplicate-arguments-array": true });
     const expected = {
       debug: true,
 

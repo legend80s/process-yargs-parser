@@ -1,6 +1,8 @@
 # process-yargs-parser
 
-> Lightweight Node.js Arguments Parser with 0 Dependencies 🚀 and many yargs-parser configurations disabled by default.
+> Lightweight Node.js arguments parser with 0 Dependencies 🚀.
+>
+> **process-yargs-parser** is an opinionated yargs-parser with many needless yargs-parser configurations disabled by default.
 
 <p>
   <a href="https://www.npmjs.com/package/process-yargs-parser">
@@ -52,5 +54,5 @@ READ more usages in [index.test.js](https://github.com/legend80s/process-yargs-p
 ## Feature
 
 - [x] duplicate-arguments-array: default false
-- [x] boolean-negation: default false
+- [x] short-option-groups: default false
 - [x] boolean-negation: default false

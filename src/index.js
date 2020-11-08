@@ -6,11 +6,11 @@
  * https://www.npmjs.com/package/yargs-parser#duplicate-arguments-array
  * @returns {Record<string, string | number | boolean | any[]>}
  */
-exports.parse = (argv = [], {
+module.exports = function parse(argv = [], {
   'duplicate-arguments-array': duplicateArgumentsArray = false,
   'short-option-groups': shortOptionGroups = false,
   'boolean-negation': booleanNegation = false,
-} = {}) => {
+} = {}) {
   const result = Object.create(null);
 
   result._ = [];

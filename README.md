@@ -19,7 +19,7 @@
   </a>
 </p>
 
-## Usage
+## Example
 
 ```sh
 npm i process-yargs-parser --save
@@ -51,7 +51,7 @@ console.log(argv)
 
 READ more usages in [index.test.js](https://github.com/legend80s/process-yargs-parser/blob/master/test/index.test.js).
 
-## Feature
+## Features
 
 - [x] duplicate-arguments-array: default false
 - [x] short-option-groups: default false

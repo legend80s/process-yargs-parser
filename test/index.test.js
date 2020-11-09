@@ -58,6 +58,21 @@ describe('yargs-parser', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('Should parse a string!', () => {
+    const argv = '--foo=99 --bar=33';
+
+    const expected = {
+      foo: 99,
+      bar: 33,
+
+      _: [],
+    };
+
+    const actual = parse(argv);
+
+    expect(actual).toEqual(expected);
+  });
+
   it('Should arguments after `--` be collected into positional args', () => {
     const argv = 'hello -x 1 -x 2 world -- --for --bar=baz -a'.split(' ');
 

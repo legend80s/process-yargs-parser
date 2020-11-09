@@ -18,7 +18,8 @@
     "src/*"
   ],
   "scripts": {
-    "preversion": "npm test",
+    "coverage": "jest --coverage",
+    "preversion": "npm run coverage",
     "test": "jest"
   },
   "repository": {
@@ -31,6 +32,16 @@
     "url": "https://github.com/legend80s/process-yargs-parser/issues"
   },
   "homepage": "https://github.com/legend80s/process-yargs-parser",
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 96.08,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
+  },
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "git-commit-msg-linter": "^3.0.0",

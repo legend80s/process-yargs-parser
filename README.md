@@ -12,10 +12,10 @@
     <img src="https://img.shields.io/npm/dm/process-yargs-parser.svg" alt="npm downloads" />
   </a>
   <a href="https://packagephobia.now.sh/result?p=process-yargs-parser" rel="nofollow">
-    <img src="https://packagephobia.now.sh/badge?p=process-yargs-parser" alt="Install Size">
+    <img src="https://packagephobia.now.sh/badge?p=process-yargs-parser" alt="install size">
   </a>
   <a href="https://github.com/legend80s/process-yargs-parser/blob/master/test/index.test.js">
-    <img src="https://badgen.net/badge/passed/jest/green" alt="jest" />
+    <img src="https://badgen.net/badge/passed/jest/green" alt="jest passed" />
   </a>
 </p>
 

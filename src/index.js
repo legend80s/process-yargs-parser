@@ -11,8 +11,8 @@ module.exports = function parse(argv = [], {
   'short-option-groups': shortOptionGroups = false,
   'boolean-negation': booleanNegation = false,
 } = {}) {
-  if (isString(argv)) {
-    argv = argv.split(' ');
+  if (typeof argv === 'string') {
+    argv = argv.split(' ').filter(Boolean);
   }
 
   const result = Object.create(null);

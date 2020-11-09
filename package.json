@@ -1,7 +1,18 @@
 {
   "name": "process-yargs-parser",
   "version": "1.0.0",
-  "description": "Lightweight Node.js Arguments Parser with 0 Dependencies 🚀 and many yargs-parser configurations disabled by default.",
+  "description": "Lightweight Node.js arguments parser with 0 Dependencies 🚀. **process-yargs-parser** is an opinionated yargs-parser with many needless yargs-parser configurations disabled by default.",
+  "keywords": [
+    "yargs",
+    "parser",
+    "command",
+    "cli",
+    "option",
+    "argument",
+    "args",
+    "argv",
+    "flag"
+  ],
   "main": "./src/index.js",
   "files": [
     "src/*"
@@ -14,8 +25,7 @@
     "type": "git",
     "url": "git+https://github.com/legend80s/process-yargs-parser.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "legend80s",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/legend80s/process-yargs-parser/issues"

@@ -251,4 +251,40 @@ describe('yargs-parser', () => {
 
     expect(actual).toEqual(expected);
   });
+
+  it('Should parse a empty string', () => {
+    const argv = '';
+
+    const expected = {
+      _: [],
+    };
+
+    const actual = parse(argv);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('Should parse a blank string with multiple spaces', () => {
+    const argv = '     ';
+
+    const expected = {
+      _: [],
+    };
+
+    const actual = parse(argv);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('Should parse undefined as input', () => {
+    const argv = undefined;
+
+    const expected = {
+      _: [],
+    };
+
+    const actual = parse(argv);
+
+    expect(actual).toEqual(expected);
+  });
 });

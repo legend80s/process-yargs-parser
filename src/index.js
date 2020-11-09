@@ -1,6 +1,6 @@
 /**
  * Parse argv as yargs-parser does.
- * @param {string[]} argv
+ * @param {string[] | string} argv
  * 'duplicate-arguments-array' Should arguments be coerced into an array when duplicated:
  * -x 1 -x 2 => { _: [], x: [1, 2] }
  * https://www.npmjs.com/package/yargs-parser#duplicate-arguments-array
@@ -11,6 +11,10 @@ module.exports = function parse(argv = [], {
   'short-option-groups': shortOptionGroups = false,
   'boolean-negation': booleanNegation = false,
 } = {}) {
+  if (isString(argv)) {
+    argv = argv.split(' ');
+  }
+
   const result = Object.create(null);
 
   result._ = [];

@@ -1,12 +1,14 @@
+module.exports = parse;
+
 /**
  * Parse argv as yargs-parser does.
  * @param {string[] | string} argv
- * 'duplicate-arguments-array' Should arguments be coerced into an array when duplicated:
+ * @property {boolean} settings['duplicate-arguments-array'] Should arguments be coerced into an array when duplicated:
  * -x 1 -x 2 => { _: [], x: [1, 2] }
  * https://www.npmjs.com/package/yargs-parser#duplicate-arguments-array
- * @returns {Record<string, string | number | boolean | any[]>}
+ * @returns {{ _: string[]; [key: string]: string | number | boolean | any[]; }}
  */
-module.exports = function parse(argv = [], {
+function parse(argv = [], {
   'duplicate-arguments-array': duplicateArgumentsArray = false,
   'short-option-groups': shortOptionGroups = false,
   'boolean-negation': booleanNegation = false,
@@ -107,7 +109,14 @@ function getValues(arr, key, newVal) {
   return [...toArray(originalVal), newVal]
 }
 
-function insert(result, key, newVal, { shouldGroupDuplicateArgs = false }) {
+/**
+ *
+ * @param {Record<string, any>} result
+ * @param {string} key
+ * @param {any} newVal
+ * @param {{ shouldGroupDuplicateArgs: boolean; }} options
+ */
+function insert(result, key, newVal, { shouldGroupDuplicateArgs }) {
   const originalVal = result[key];
   const coercedNewVal = toNumber(toBoolean(newVal));
 

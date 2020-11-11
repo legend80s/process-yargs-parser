@@ -252,6 +252,20 @@ describe('yargs-parser', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('Should parse as expected when short-option-groups true but with no short options', () => {
+    const input = ['--foo', 'bar'];
+    const actual = parse(input, { "short-option-groups": true });
+    const expected = {
+      foo: 'bar',
+
+      _: [],
+    };
+
+    // console.log('actual:', actual);
+
+    expect(actual).toEqual(expected);
+  });
+
   it('Should parse a empty string', () => {
     const argv = '';
 
@@ -280,6 +294,20 @@ describe('yargs-parser', () => {
     const argv = undefined;
 
     const expected = {
+      _: [],
+    };
+
+    const actual = parse(argv);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('Should parse arg with `=` but no value', () => {
+    const argv = '--foo=';
+
+    const expected = {
+      foo: true,
+
       _: [],
     };
 

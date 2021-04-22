@@ -154,13 +154,21 @@ describe('yargs-parser', () => {
 
     const expected = {
       'no-implicit-any': true,
+      'noImplicitAny': true,
+
       'implicit-any': false,
+      'implicitAny': false,
+
       'no-emit': true,
+      'noEmit': true,
       'emit': false,
 
       'no-implicit-this': 'false',
+      'noImplicitThis': 'false',
       'no-pick': 'true',
+      'noPick': 'true',
       'no-topping': 'yes',
+      'noTopping': 'yes',
 
       _: [],
     };
@@ -182,6 +190,13 @@ describe('yargs-parser', () => {
       'no-implicit-this': 'false',
       'no-pick': 'true',
       'no-topping': 'yes',
+
+      'noImplicitAny': true,
+      'noEmit': true,
+
+      'noImplicitThis': 'false',
+      'noPick': 'true',
+      'noTopping': 'yes',
 
       _: [],
     };
@@ -224,11 +239,15 @@ describe('yargs-parser', () => {
   });
 
   it('Should parse multiple beginning hyphens into two entry', () => {
-    const input = ['-----k=-x'];
+    // const input = '-----for-bar=false';
+    const input = '-----k=-x -----for-bar=false --for-bar=true';
     const actual = parse(input, { "duplicate-arguments-array": true });
     const expected = {
       '---k': '-x',
       k: '-x',
+      '---for-bar': 'false',
+      forBar: 'true',
+      'for-bar': ['false', 'true'],
 
       _: [],
     };
@@ -312,6 +331,42 @@ describe('yargs-parser', () => {
     };
 
     const actual = parse(argv);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('camel-case-expansion default true', () => {
+    const argv = '--foo-bar'.split(' ');
+
+    const expected = { _: [], 'foo-bar': true, fooBar: true };
+
+    const actual = parse(argv);
+
+    // console.log('actual:', actual);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('camel-case-expansion default true and duplicateArgumentsArray', () => {
+    const argv = '--foo-bar --fooBar'.split(' ');
+
+    const expected = { _: [], 'foo-bar': true, fooBar: [true, true] };
+
+    const actual = parse(argv, { "duplicate-arguments-array": true, });
+
+    // console.log('actual:', actual);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('camel-case-expansion false', () => {
+    const argv = '--foo-bar'.split(' ');
+
+    const expected = { _: [], 'foo-bar': true };
+
+    const actual = parse(argv, { 'camel-case-expansion': false });
+
+    // console.log('actual:', actual);
 
     expect(actual).toEqual(expected);
   });

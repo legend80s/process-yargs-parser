@@ -1,6 +1,6 @@
 {
   "name": "process-yargs-parser",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Lightweight Node.js arguments parser with 0 Dependencies 🚀. **process-yargs-parser** is an opinionated yargs-parser with many needless yargs-parser configurations disabled by default.",
   "keywords": [
     "yargs",

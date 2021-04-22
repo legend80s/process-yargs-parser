@@ -1,3 +1,5 @@
+const { camelCase } = require('./lib');
+
 module.exports = parse;
 
 /**
@@ -12,6 +14,7 @@ function parse(argv = [], {
   'duplicate-arguments-array': duplicateArgumentsArray = false,
   'short-option-groups': shortOptionGroups = false,
   'boolean-negation': booleanNegation = false,
+  'camel-case-expansion': camelCaseExpansion = true,
 } = {}) {
   if (typeof argv === 'string') {
     argv = argv.split(' ').filter(Boolean);
@@ -26,6 +29,7 @@ function parse(argv = [], {
 
   for (let i = 0, step = 1; i < args.length; i += step) {
     const entry = String(args[i]);
+    // console.log('entry:', entry);
 
     if (entry == '--') {
       result._.push(...args.slice(i + 1));
@@ -56,7 +60,15 @@ function parse(argv = [], {
 
       const val = entry.slice(idx + 1)
 
-      insert(result, key, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray })
+      insert(result, key, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+
+      const camelCased = camelCase(key);
+
+      // console.log('key:', key, val);
+
+      if (camelCaseExpansion && camelCased !== key && key[0] !== '-') {
+        insert(result, camelCased, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+      }
 
       continue;
     }
@@ -64,26 +76,56 @@ function parse(argv = [], {
     const next = String(args[i + 1]);
     const key = normalizeKey(entry);
     const atEnd = i + 1 === args.length;
+    const camelCased = camelCase(key);
+
+    // console.log('key:', key, camelCased);
 
     if (atEnd || next.startsWith('-')) {
       insert(result, key, true, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
 
+      // console.log('result1:', result);
+
+      if (camelCaseExpansion && camelCased !== key) {
+        insert(result, camelCased, true, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+      }
+      // console.log('result2:', result);
+
       const NEGATION_SIGN = '--no-';
 
       if (booleanNegation && entry.startsWith(NEGATION_SIGN)) {
+        const key = entry.slice(NEGATION_SIGN.length);
+
         insert(
           result,
-          entry.slice(NEGATION_SIGN.length),
+          key,
           false,
 
           { shouldGroupDuplicateArgs: duplicateArgumentsArray },
         );
+
+        const camelCased = camelCase(key);
+
+        if (camelCaseExpansion && camelCased !== key) {
+          insert(
+            result,
+            camelCased,
+            false,
+
+            { shouldGroupDuplicateArgs: duplicateArgumentsArray },
+          );
+        }
       }
 
       continue;
     }
 
     insert(result, key, next, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+
+    // const camelCased = camelCase(key);
+
+    if (camelCaseExpansion && camelCased !== key) {
+      insert(result, camelCased, next, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+    }
 
     step = 2;
   }
@@ -133,7 +175,6 @@ function insert(result, key, newVal, { shouldGroupDuplicateArgs }) {
   }
 
   key = removeAllBeginningHyphens(key);
-  result[key];
 
   if (!shouldGroupDuplicateArgs || result[key] === undefined) {
     result[key] = coercedNewVal;

@@ -62,3 +62,4 @@ READ more usages in [index.test.js](https://github.com/legend80s/process-yargs-p
 - [x] duplicate-arguments-array: default false
 - [x] short-option-groups: default false
 - [x] boolean-negation: default false
+- [x] no-convert-number-string default false. will convert "1" to 1

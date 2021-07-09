@@ -15,6 +15,7 @@ function parse(argv = [], {
   'short-option-groups': shortOptionGroups = false,
   'boolean-negation': booleanNegation = false,
   'camel-case-expansion': camelCaseExpansion = true,
+  'no-convert-number-string': noConvertNumberString = false,
 } = {}) {
   if (typeof argv === 'string') {
     argv = argv.split(' ').filter(Boolean);
@@ -60,14 +61,14 @@ function parse(argv = [], {
 
       const val = entry.slice(idx + 1)
 
-      insert(result, key, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+      insert(result, key, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString });
 
       const camelCased = camelCase(key);
 
       // console.log('key:', key, val);
 
       if (camelCaseExpansion && camelCased !== key && key[0] !== '-') {
-        insert(result, camelCased, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+        insert(result, camelCased, val, { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString });
       }
 
       continue;
@@ -81,12 +82,12 @@ function parse(argv = [], {
     // console.log('key:', key, camelCased);
 
     if (atEnd || next.startsWith('-')) {
-      insert(result, key, true, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+      insert(result, key, true, { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString });
 
       // console.log('result1:', result);
 
       if (camelCaseExpansion && camelCased !== key) {
-        insert(result, camelCased, true, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+        insert(result, camelCased, true, { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString });
       }
       // console.log('result2:', result);
 
@@ -100,7 +101,7 @@ function parse(argv = [], {
           key,
           false,
 
-          { shouldGroupDuplicateArgs: duplicateArgumentsArray },
+          { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString },
         );
 
         const camelCased = camelCase(key);
@@ -111,7 +112,7 @@ function parse(argv = [], {
             camelCased,
             false,
 
-            { shouldGroupDuplicateArgs: duplicateArgumentsArray },
+            { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString },
           );
         }
       }
@@ -119,12 +120,12 @@ function parse(argv = [], {
       continue;
     }
 
-    insert(result, key, next, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+    insert(result, key, next, { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString });
 
     // const camelCased = camelCase(key);
 
     if (camelCaseExpansion && camelCased !== key) {
-      insert(result, camelCased, next, { shouldGroupDuplicateArgs: duplicateArgumentsArray });
+      insert(result, camelCased, next, { shouldGroupDuplicateArgs: duplicateArgumentsArray, noConvertNumberString });
     }
 
     step = 2;
@@ -158,9 +159,12 @@ function getValues(arr, key, newVal) {
  * @param {any} newVal
  * @param {{ shouldGroupDuplicateArgs: boolean; }} options
  */
-function insert(result, key, newVal, { shouldGroupDuplicateArgs }) {
+function insert(result, key, newVal, { shouldGroupDuplicateArgs, noConvertNumberString }) {
   const originalVal = result[key];
-  const coercedNewVal = toNumber(toBoolean(newVal));
+  const coercedNewVal = noConvertNumberString ?
+    toBoolean(newVal) :
+    toNumber(toBoolean(newVal))
+  ;
 
   // console.log({result, key, newVal, coercedNewVal});
 

@@ -18,7 +18,7 @@
     <img src="https://badgen.net/badge/passed/jest/green" alt="jest passed" />
   </a>
   <a href="https://github.com/legend80s/process-yargs-parser/blob/master/test/index.test.js">
-    <img src="http://img.shields.io/nycrc/legend80s/process-yargs-parser" alt="min coverage" />
+    <img src="http://img.shields.io/nycrc/legend80s/process-yargs-parser" alt="coverage" />
   </a>
   <a href="https://www.npmjs.com/package/git-commit-msg-linter">
     <img src="https://badgen.net/badge/git-commit-msg-linter/3.0.0/yellow" alt="commit msg linted by git-commit-msg-linter" />
